@@ -10,7 +10,8 @@ export default async function cliController(args: string[]) {
     const input = parse(args, {
         default: {
             s: 100,
-            r: 3
+            r: 3,
+            e: ''
         }
     })
     const {
@@ -43,13 +44,12 @@ export default async function cliController(args: string[]) {
         link: LINK_SIAM
     }  
 
-    let excludedDosen = exclude.split(',')
     const option: Option = {
         headless: help || h ? true : false,
         slowMo: slowMo || s,
         random: random || r,
-        exclude: excludedDosen || e
+        exclude: exclude || e
     }
     
-    // await populateQuestionnaire(siam, option)
+    await populateQuestionnaire(siam, option)
 }

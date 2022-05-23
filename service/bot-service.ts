@@ -28,6 +28,9 @@ export default async function populateQuestionnaire(siam: Siam, option: Option) 
     await page.goto(siam.link)
 
     await login(page, siam)
+    await page.waitForTimeout(2000);
+    
+    let excludedDosen = option.exclude.split('')
     
 }
 
@@ -36,3 +39,4 @@ async function login(page: Page, siam: Siam) {
     await page.type("input[name=password]", siam.password)
     await page.click('input[name="login"]')
 }
+
