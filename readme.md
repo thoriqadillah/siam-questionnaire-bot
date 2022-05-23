@@ -7,7 +7,6 @@ Masuk ke dalam folder yang kalian inginkan, kemudian clone repo dengan run comma
 ```
 git clone https://github.com/thoriqadillah/siam-questionnaire-bot.git
 cd siam-questionnaire-bot/bin
-
 ```
 Lalu run dengan nama file sesuai OS yang kalian pakai kemudian berikan input dengan pilihan flags di bawah ini. Atau bisa lihat pada `nama_file --help`
 ```
