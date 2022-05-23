@@ -9,9 +9,17 @@ const LINK_SIAM = 'https://siam.ub.ac.id/'
 export default async function cliController(args: string[]) {
     const input = parse(args, {
         default: {
-            s: 100,
-            r: 3,
-            e: ''
+            slowMo: 100,
+            random: 3,
+            exclude: ''
+        }, 
+        alias: {
+            h: "help",
+            u: "username",
+            p: "password",
+            s: "slowMo",
+            r: "random",
+            e: "exclude"
         }
     })
     const {
@@ -39,8 +47,8 @@ export default async function cliController(args: string[]) {
     }
 
     const siam: Siam = {
-        username: `${username}`,
-        password: password,
+        username: `${username}` || `${u}`,
+        password: password || p,
         link: LINK_SIAM
     }  
 
@@ -48,8 +56,9 @@ export default async function cliController(args: string[]) {
         headless: help || h ? true : false,
         slowMo: slowMo || s,
         random: random || r,
-        exclude: exclude || e
+        exclude: exclude ?? e
     }
+    console.log(input)
     
     await populateQuestionnaire(siam, option)
 }
