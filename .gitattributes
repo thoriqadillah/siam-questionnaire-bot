@@ -1,0 +1,2 @@
+bin/BETA_siam-kuesioner-bot-linux_x86-64 filter=lfs diff=lfs merge=lfs -text
+bin/BETA_siam-kuesioner-bot-windows_x86-64.exe filter=lfs diff=lfs merge=lfs -text
