@@ -5,7 +5,9 @@ export type Siam = {
     password: string
     link: string
 }
-
-export type Bot = {
-    instance: Page
+export type Option = {
+    headless: boolean
+    slowMo: number
+    random: number
+    exclude: string[]
 }
