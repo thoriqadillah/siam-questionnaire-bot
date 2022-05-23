@@ -1,4 +1,4 @@
-# Kuesioner Bot CLI App
+# Kuesioner Bot CLI App (BETA)
 Apakah kalian mager ketika ngisi kuesioner dosen yang tiap akhir semester itu? Sama gan 
 Meskipun cuma butuhin beberapa menit, tapi bosenin cuy. Makanya aku buat program ini selama beberapa jam biar ngisi kuesionernya otomatis. Basically I walk so you can run.
 Kuesioner bot ini dibuat menggunakan [Deno](https://deno.land/)
