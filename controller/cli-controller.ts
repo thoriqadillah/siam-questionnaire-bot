@@ -58,7 +58,6 @@ export default async function cliController(args: string[]) {
         random: random || r,
         exclude: exclude ?? e
     }
-    console.log(input)
     
     await populateQuestionnaire(siam, option)
 }
