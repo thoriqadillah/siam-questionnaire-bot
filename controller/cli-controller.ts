@@ -11,29 +11,28 @@ export default async function cliController(args: string[]) {
         default: {
             s: 100,
             r: 3
-        },
-        alias: {
-            h: "help",
-            u: "username",
-            p: "password",
-            s: "slowMo",
-            r: "random",
-            e: "exclude"
         }
     })
-    const { help, username, password, slowMo, random, exclude } = input
+    const {
+        help, h,
+        username, u,
+        password, p,
+        slowMo, s,
+        random, r,
+        exclude, e 
+    } = input
 
-    if (help) {
+    if (help || h) {
         buildHelpResponse()
         return
     }
 
-    if (!username) {
+    if (!username && !u) {
         throwRequiredException()
         return
     }
 
-    if (!password) {
+    if (!password && !p) {
         throwRequiredException()
         return
     }
@@ -46,10 +45,10 @@ export default async function cliController(args: string[]) {
 
     let excludedDosen = exclude.split(',')
     const option: Option = {
-        headless: help ? true : false,
-        slowMo: slowMo,
-        random: random,
-        exclude: excludedDosen
+        headless: help || h ? true : false,
+        slowMo: slowMo || s,
+        random: random || r,
+        exclude: excludedDosen || e
     }
     
     // await populateQuestionnaire(siam, option)
