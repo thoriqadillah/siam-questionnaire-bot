@@ -1,7 +1,6 @@
 import { parse } from "https://deno.land/std@0.140.0/flags/mod.ts";
-import buildHelpResponse from "../handler/help-handler.ts";
-import throwRequiredException from "../handler/required-handler.ts";
-import populateQuestionnaire from "../service/bot-service.ts";
+import { buildHelpResponse, throwRequiredException } from "../helper/response-helper.ts";
+import takeQuestionnaire , { getChromiumPath } from "../service/bot-service.ts";
 import { Siam, Option } from "../service/bot.ts";
 
 const LINK_SIAM = 'https://siam.ub.ac.id/'
@@ -9,9 +8,10 @@ const LINK_SIAM = 'https://siam.ub.ac.id/'
 export default async function cliController(args: string[]) {
     const input = parse(args, {
         default: {
-            slowMo: 100,
+            slowMo: 50,
             random: 3,
-            exclude: ''
+            exclude: '',
+            path: getChromiumPath()
         }, 
         alias: {
             h: "help",
@@ -19,7 +19,8 @@ export default async function cliController(args: string[]) {
             p: "password",
             s: "slowMo",
             r: "random",
-            e: "exclude"
+            e: "exclude",
+            m: "message"
         }
     })
     const {
@@ -28,7 +29,9 @@ export default async function cliController(args: string[]) {
         password, p,
         slowMo, s,
         random, r,
-        exclude, e 
+        exclude, e,
+        message, m,
+        path 
     } = input
 
     if (help || h) {
@@ -46,6 +49,11 @@ export default async function cliController(args: string[]) {
         return
     }
 
+    if (!message && !m) {
+        throwRequiredException()
+        return
+    }
+
     const siam: Siam = {
         username: `${username}` || `${u}`,
         password: password || p,
@@ -56,8 +64,10 @@ export default async function cliController(args: string[]) {
         headless: help || h ? true : false,
         slowMo: slowMo || s,
         random: random || r,
-        exclude: exclude ?? e
+        exclude: exclude ?? e,
+        message: message ?? m,
+        path: path
     }
     
-    await populateQuestionnaire(siam, option)
+    await takeQuestionnaire(siam, option)
 }

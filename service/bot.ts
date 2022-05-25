@@ -8,6 +8,8 @@ export type Option = {
     slowMo: number
     random: number
     exclude: string
+    message: string
+    path: string
 }
 
 // export type Dosen = {
