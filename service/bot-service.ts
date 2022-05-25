@@ -29,7 +29,6 @@ export default async function takeQuestionnaire(siam: Siam, option: Option) {
         slowMo: option.slowMo,
     });
     const page = await browser.newPage();
-
     await page.goto(siam.link)
 
     console.log('Login...')
@@ -49,7 +48,6 @@ export default async function takeQuestionnaire(siam: Siam, option: Option) {
     }
 
     const dosen = await filterDosen(page, excludedDosen)
-    
     if (dosen.length == 0) {
         emptyQuestionnaireException()
         await browser.close()
@@ -104,7 +102,6 @@ async function filterDosen(page:Page, exclude: string[]): Promise<Dosen[]> {
     if (exclude.length == 0) return dosens
     
     for (let j = 0; j < exclude.length; j++) {
-        if (exclude.length == 0) break
         dosens = dosens.filter(el => !el.name.toLowerCase().includes(exclude[j]))
     }
 
