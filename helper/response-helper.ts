@@ -7,8 +7,8 @@ export function buildHelpResponse() {
         'flags\n' +
         '  -h --help        Menampilkan help\n' +
         '  -u --username    Input username (wajib diisi)\n' +
-        '  -p --password    Input password (wajib diisi)\n\n' +
-        '  -m --message     Pesan yang diberikan kepada dosen\n' +
+        '  -p --password    Input password (wajib diisi)\n' +
+        '  -m --message     Pesan yang diberikan kepada dosen\n\n' +
 
         'optional\n' +
         '  -s --slowMo      Set slow motion bot. Default 100ms (0.9x)\n' +
