@@ -5,7 +5,7 @@ import { Siam, Option } from "../service/bot.ts";
 
 const LINK_SIAM = 'https://siam.ub.ac.id/'
 
-export default async function cliController(args: string[]) {
+export default async function run(args: string[]) {
     const input = parse(args, {
         default: {
             slowMo: 50,
