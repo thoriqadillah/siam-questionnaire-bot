@@ -43,7 +43,7 @@ Pada ekslusi dosen, cukup beri nama panggilannya saja dipisahkan dengan koma tan
 
 Maka kalian cukup run command pada terminal dengan
 ```
-linux_x64 --username 195150400111034 --password secret --message terima kasih --exclude fulan,jarwo
+linux-gnu-x86_64-beta --username 195150400111034 --password secret --message terima kasih --exclude fulan,jarwo
 ```
 ### **WARNING : PER TANGGAL 25 MEI PROGRAM INI BELUM JADI**
 Karena saya pribadi masih kurang yakin apakah ini sudah waktunya mengisi kuesioner dosen meskipun sekarang ketika masuk SIAM langsung redirect ke kuesioner dosen, maka sementara program dapat mengisi kuesioner tetapi tidak sampai dikirim ke server.
