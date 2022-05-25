@@ -1,6 +1,7 @@
 import puppeteer, { Page } from "https://deno.land/x/puppeteer@9.0.2/mod.ts";
 import { Option, Siam } from "./bot.ts";
 import os from "https://deno.land/x/dos@v0.11.0/mod.ts";
+import { emptyQuestionnaireException } from "../helper/response-helper.ts";
 
 type Dosen = {
     link: string
@@ -31,6 +32,7 @@ export default async function takeQuestionnaire(siam: Siam, option: Option) {
 
     await page.goto(siam.link)
 
+    console.log('Login...')
     await login(page, siam)
     await page.waitForTimeout(2000);
     
@@ -40,14 +42,26 @@ export default async function takeQuestionnaire(siam: Siam, option: Option) {
         return
     }
 
-    let excludedDosen = option.exclude.toLowerCase().split(',')
+    console.log('Mengisi kuesioner...')
+    let excludedDosen: string[] = []
+    if (option.exclude != undefined) {
+        excludedDosen = option.exclude.toLowerCase().split(',')
+    }
+
     const dosen = await filterDosen(page, excludedDosen)
     
+    if (dosen.length == 0) {
+        emptyQuestionnaireException()
+        await browser.close()
+        return
+    }
+
     for (let i = 0; i < dosen.length; i++) {
         await page.goto(dosen[i].link)
         await populateQuestionnaire(page, option)
     }
 
+    console.log('Selesai....')
     await browser.close()
 }
 
@@ -87,7 +101,10 @@ async function filterDosen(page:Page, exclude: string[]): Promise<Dosen[]> {
         })
     }
 
+    if (exclude.length == 0) return dosens
+    
     for (let j = 0; j < exclude.length; j++) {
+        if (exclude.length == 0) break
         dosens = dosens.filter(el => !el.name.toLowerCase().includes(exclude[j]))
     }
 

@@ -10,7 +10,6 @@ export default async function run(args: string[]) {
         default: {
             slowMo: 50,
             random: 3,
-            exclude: '',
             path: getChromiumPath()
         }, 
         alias: {
