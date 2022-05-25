@@ -23,5 +23,7 @@ export function throwRequiredException() {
     console.log(Colors.red('username, password, dan message wajib diisi'))
 }
 
-
+export function emptyQuestionnaireException() {
+    console.log(Colors.yellow('Tidak ada kuesioner tersisa'))
+}
     
