@@ -2,6 +2,13 @@
 Apakah kalian mager ketika ngisi kuesioner dosen yang tiap akhir semester itu? Sama gan. Meskipun cuma butuhin beberapa menit, tapi bosenin cuy. Makanya kubuat program ini selama beberapa jam biar ngisi kuesionernya otomatis. Basically I walk so you can run.
 Kuesioner bot ini dibuat menggunakan [Deno](https://deno.land/)
 
+## Prerequisites
+Hal yang perlu kalian install untuk dapat menjalankan program ini
+
+* Chromium
+
+**Note** : windows secara default sudah menyediakan chromium jika kalian mempunyai broswer seperti brave, edge, chrome, opera, dll. Sedangkan untuk linux harus menginstall manual
+
 ## Cara Pakai
 Masuk ke dalam folder yang kalian inginkan, kemudian clone repo dengan run command di bawah ini pada terminal kalian
 ```
@@ -16,15 +23,17 @@ flags
   -h --help        Menampilkan help
   -u --username    Input username (wajib diisi)
   -p --password    Input password (wajib diisi)
+  -m --message     Pesan yang diberikan kepada dosen (wajib diisi)
 
 optional
-  -s --slowMo      Set slow motion bot. Default 100ms (0.9x)
+  -s --slowMo      Set slow motion bot. Default 50ms (0.95x)
   -r --random      Set randomisasi jawaban kuesioner. Default 3 (Normal, Baik, Sangat Baik)
-  -e --exclude     Exclude dosen agar dapat Anda isi kuesioner secara manual
+  -e --exclude     Exclude dosen agar dapat kalian isi kuesioner secara manual
+     --path        Set executable path chromium secara manual jika program gagal berjalan
 ```
 Contoh penggunaan:
 ```
-BETA_siam-kuesioner-bot-linux_x86-64 --username 195150400111034 --password aaaaaaaa --slowMo 0 --random 4 
+BETA_siam-kuesioner-bot-linux_x86-64 --username 195150400111034 --password secret --message terima kasih
 ```
 Pada ekslusi dosen, cukup beri nama panggilannya saja dipisahkan dengan koma tanpa spasi. Contoh dosen yang ada di kuesioner kalian adalah 
 
@@ -34,7 +43,7 @@ Pada ekslusi dosen, cukup beri nama panggilannya saja dipisahkan dengan koma tan
 
 Maka kalian cukup run command pada terminal dengan
 ```
-linux_x64 --username 195150400111034 --password aaaaaaaa --slowMo 0 --random 4 --exclude fulan,jarwo
+linux_x64 --username 195150400111034 --password secret --message terima kasih --exclude fulan,jarwo
 ```
-#### **WARNING : Per tanggal 23 Mei, project ini belum jadi**
-Saat ini bot hanya bisa melakukan login SIAM saja karena kuesioner dosen belum ada saat ini. Kalian akan mengetahui jika project ini sudah jadi ketika kalian tidak melihat tulisan warning ini
+### **WARNING : PER TANGGAL 25 MEI PROGRAM INI BELUM JADI**
+Karena saya pribadi masih kurang yakin apakah ini sudah waktunya mengisi kuesioner dosen meskipun sekarang ketika masuk SIAM langsung redirect ke kuesioner dosen, maka sementara program dapat mengisi kuesioner tetapi tidak sampai dikirim ke server.
