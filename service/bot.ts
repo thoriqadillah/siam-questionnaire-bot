@@ -11,7 +11,3 @@ export type Option = {
     message: string
     path: string
 }
-
-// export type Dosen = {
-//     links
-// }
