@@ -33,7 +33,7 @@ optional
 ```
 Contoh penggunaan:
 ```
-BETA_siam-kuesioner-bot-linux_x86-64 --username 195150400111034 --password secret --message terima kasih
+linux-gnu-x86_64-beta --username 195150400111034 --password secret --message terima kasih
 ```
 Pada ekslusi dosen, cukup beri nama panggilannya saja dipisahkan dengan koma tanpa spasi. Contoh dosen yang ada di kuesioner kalian adalah 
 
