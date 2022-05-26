@@ -1,12 +1,9 @@
 import puppeteer, { Page } from "https://deno.land/x/puppeteer@9.0.2/mod.ts";
-import { Option, Siam } from "./bot.ts";
 import os from "https://deno.land/x/dos@v0.11.0/mod.ts";
-import { buildNotFoundResponse } from "../helper/response-helper.ts";
-
-type Dosen = {
-    link: string
-    name: string
-}
+import { buildInfo, buildNotFoundResponse } from "../helper/response-helper.ts";
+import { Siam } from "../entity/siam.ts";
+import { Option } from "../entity/botOption.ts";
+import { Dosen } from "../entity/dosen.ts";
 
 export function getChromiumPath(): string {
     const platform = os.platform()
@@ -31,25 +28,25 @@ export default async function takeQuestionnaire(siam: Siam, option: Option) {
     const page = await browser.newPage();
     await page.goto(siam.link)
 
-    console.log('Login...')
+    buildInfo('> Login...')
     await login(page, siam)
     await page.waitForTimeout(2000);
     
     if (await !isRedirectedToQuestionnaire(page)) {
-        buildNotFoundResponse('Kuesioner tidak ditemukan')
+        buildNotFoundResponse('> Kuesioner tidak ditemukan')
         browser.close()
         return
     }
 
-    console.log('Mengisi kuesioner...')
+    buildInfo('> Mengisi kuesioner...')
     const dosen = await filterDosen(page, option)
     for (let i = 0; i < dosen.length; i++) {
+        buildInfo(`> Mengisi kuesioner atas nama ${dosen[i].name}...`)
         await page.goto(dosen[i].link)
         await populateQuestionnaire(page, option)
     }
 
-    buildNotFoundResponse('Tidak ada kuesioner tersisa')
-    console.log('Selesai...')
+    buildInfo('> Selesai...')
     await browser.close()
 }
 
@@ -99,14 +96,12 @@ async function filterDosen(page:Page, option: Option): Promise<Dosen[]> {
     return dosens
 }
 
-
 async function populateQuestionnaire(page: Page, option: Option) {
     const TOTAL_QUESTION_OPTION = 5
     const TOTAL_QUESTION = 28
 
-    const random = Math.floor(Math.random() * (TOTAL_QUESTION_OPTION - option.random + 1)) + option.random; 
-
     for (let i = 1; i <= TOTAL_QUESTION; i++) {
+        const random = Math.floor(Math.random() * (TOTAL_QUESTION_OPTION - option.random + 1)) + option.random; 
         const element = await page.$(`table tbody tr.text td:last-child input[name="${i}"][value="${random}"]`)
         await element?.click()
     }
@@ -116,4 +111,3 @@ async function populateQuestionnaire(page: Page, option: Option) {
 
     await page.waitForTimeout(1000);
 }
-
