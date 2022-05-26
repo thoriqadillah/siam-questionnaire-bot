@@ -1,7 +1,7 @@
 import puppeteer, { Page } from "https://deno.land/x/puppeteer@9.0.2/mod.ts";
 import { Option, Siam } from "./bot.ts";
 import os from "https://deno.land/x/dos@v0.11.0/mod.ts";
-import { emptyQuestionnaireException } from "../helper/response-helper.ts";
+import { buildNotFoundResponse } from "../helper/response-helper.ts";
 
 type Dosen = {
     link: string
@@ -36,30 +36,20 @@ export default async function takeQuestionnaire(siam: Siam, option: Option) {
     await page.waitForTimeout(2000);
     
     if (await !isRedirectedToQuestionnaire(page)) {
-        console.log('Tidak ditemukan kuesioner mata kuliah')
+        buildNotFoundResponse('Kuesioner tidak ditemukan')
         browser.close()
         return
     }
 
     console.log('Mengisi kuesioner...')
-    let excludedDosen: string[] = []
-    if (option.exclude != undefined) {
-        excludedDosen = option.exclude.toLowerCase().split(',')
-    }
-
-    const dosen = await filterDosen(page, excludedDosen)
-    if (dosen.length == 0) {
-        emptyQuestionnaireException()
-        await browser.close()
-        return
-    }
-
+    const dosen = await filterDosen(page, option)
     for (let i = 0; i < dosen.length; i++) {
         await page.goto(dosen[i].link)
         await populateQuestionnaire(page, option)
     }
 
-    console.log('Selesai....')
+    buildNotFoundResponse('Tidak ada kuesioner tersisa')
+    console.log('Selesai...')
     await browser.close()
 }
 
@@ -75,7 +65,7 @@ async function isRedirectedToQuestionnaire(page: Page) {
     return title.toString() == 'Kuisioner Mata Kuliah' ? true : false
 }
 
-async function filterDosen(page:Page, exclude: string[]): Promise<Dosen[]> {
+async function filterDosen(page:Page, option: Option): Promise<Dosen[]> {
     const anchors = await page.$$('table tbody tr.text td:last-child a')
     const tds = await page.$$('table tbody tr.text td:nth-child(7)')
 
@@ -90,7 +80,7 @@ async function filterDosen(page:Page, exclude: string[]): Promise<Dosen[]> {
             return await page.evaluate(td => td.textContent, element)
         })
     ) as string[]
-        
+
     let dosens: Dosen[] = []
     for (let i = 0; i < names.length; i++) {
         dosens.push({
@@ -99,10 +89,11 @@ async function filterDosen(page:Page, exclude: string[]): Promise<Dosen[]> {
         })
     }
 
-    if (exclude.length == 0) return dosens
+    if (option.exclude == undefined) return dosens
     
-    for (let j = 0; j < exclude.length; j++) {
-        dosens = dosens.filter(el => !el.name.toLowerCase().includes(exclude[j]))
+    let excludedDosen = option.exclude.toLowerCase().split(',')
+    for (let j = 0; j < excludedDosen.length; j++) {
+        dosens = dosens.filter(el => !el.name.toLowerCase().includes(excludedDosen[j]))
     }
 
     return dosens

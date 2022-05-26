@@ -1,5 +1,5 @@
 import { parse } from "https://deno.land/std@0.140.0/flags/mod.ts";
-import { buildHelpResponse, throwRequiredException } from "../helper/response-helper.ts";
+import { buildHelpResponse, buildRequiredResponse } from "../helper/response-helper.ts";
 import takeQuestionnaire , { getChromiumPath } from "../service/bot-service.ts";
 import { Siam, Option } from "../service/bot.ts";
 
@@ -39,17 +39,17 @@ export default async function run(args: string[]) {
     }
 
     if (!username && !u) {
-        throwRequiredException()
+        buildRequiredResponse('Username wajib diisi')
         return
     }
 
     if (!password && !p) {
-        throwRequiredException()
+        buildRequiredResponse('Password wajib diisi')
         return
     }
 
     if (!message && !m) {
-        throwRequiredException()
+        buildRequiredResponse('Message wajib diisi')
         return
     }
 

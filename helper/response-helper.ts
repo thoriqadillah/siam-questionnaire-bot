@@ -1,5 +1,7 @@
 import * as Colors from "https://deno.land/std/fmt/colors.ts"
 
+type Response = string
+
 export function buildHelpResponse() {
     console.log(
         'SIAM Bot by thoriqadillah\n\n' +
@@ -15,15 +17,13 @@ export function buildHelpResponse() {
         '  -r --random      Set randomisasi jawaban kuesioner. Default 3 (Normal, Baik, Sangat Baik) \n' +
         '  -e --exclude     Exclude dosen agar dapat kalian isi kuesioner secara manual\n' +
         '     --path        Set executable path chromium secara manual jika program gagal berjalan\n' 
-
     )
 }
 
-export function throwRequiredException() {
-    console.log(Colors.red('username, password, dan message wajib diisi'))
+export function buildRequiredResponse(res: Response) {
+    console.log(Colors.red(res))
 }
 
-export function emptyQuestionnaireException() {
-    console.log(Colors.yellow('Tidak ada kuesioner tersisa'))
+export function buildNotFoundResponse(res: Response) {
+    console.log(Colors.yellow(res))
 }
-    
