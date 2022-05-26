@@ -24,6 +24,14 @@ export function buildRequiredResponse(res: Response) {
     console.log(Colors.red(res))
 }
 
+export function buildErrorResponse(res: Response) {
+    console.log(Colors.red(res))
+}
+
 export function buildNotFoundResponse(res: Response) {
     console.log(Colors.yellow(res))
+}
+
+export function buildInfo(res: Response) {
+    console.log(res)
 }
