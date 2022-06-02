@@ -1,4 +1,4 @@
-# Kuesioner Bot CLI App (BETA)
+# Kuesioner Bot CLI App
 Apakah kalian mager ketika ngisi kuesioner dosen yang tiap akhir semester itu? Sama gan. Meskipun cuma butuhin beberapa menit, tapi bosenin cuy. Makanya kubuat program ini selama beberapa jam biar ngisi kuesionernya otomatis. Basically I walk so you can run.
 Kuesioner bot ini dibuat menggunakan [Deno](https://deno.land/)
 
@@ -46,5 +46,3 @@ Maka kalian cukup run command pada terminal dengan
 ```
 linux-gnu-x86_64-beta --username 195150400111034 --password secret --message "terima kasih" --exclude fulan,jarwo --send true
 ```
-### **WARNING : PER TANGGAL 25 MEI PROGRAM INI BELUM JADI**
-Karena saya pribadi masih kurang yakin apakah ini sudah waktunya mengisi kuesioner dosen meskipun sekarang ketika masuk SIAM langsung redirect ke kuesioner dosen, maka sementara program dapat mengisi kuesioner tetapi tidak sampai dikirim ke server.
