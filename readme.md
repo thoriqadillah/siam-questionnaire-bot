@@ -29,11 +29,12 @@ optional
   -s --slowMo      Set slow motion bot. Default 50ms (0.95x)
   -r --random      Set randomisasi jawaban kuesioner. Default 3 (Normal, Baik, Sangat Baik)
   -e --exclude     Exclude dosen agar dapat kalian isi kuesioner secara manual
+     --send        Kirim kuesioner ke server. (Default false)
      --path        Set executable path chromium secara manual jika program gagal berjalan
 ```
 Contoh penggunaan:
 ```
-linux-gnu-x86_64-beta --username 195150400111034 --password secret --message terima kasih
+linux-gnu-x86_64-beta --username 195150400111034 --password secret --message "terima kasih"
 ```
 Pada ekslusi dosen, cukup beri nama panggilannya saja dipisahkan dengan koma tanpa spasi. Contoh dosen yang ada di kuesioner kalian adalah 
 
@@ -43,7 +44,7 @@ Pada ekslusi dosen, cukup beri nama panggilannya saja dipisahkan dengan koma tan
 
 Maka kalian cukup run command pada terminal dengan
 ```
-linux-gnu-x86_64-beta --username 195150400111034 --password secret --message terima kasih --exclude fulan,jarwo
+linux-gnu-x86_64-beta --username 195150400111034 --password secret --message "terima kasih" --exclude fulan,jarwo --send true
 ```
 ### **WARNING : PER TANGGAL 25 MEI PROGRAM INI BELUM JADI**
 Karena saya pribadi masih kurang yakin apakah ini sudah waktunya mengisi kuesioner dosen meskipun sekarang ketika masuk SIAM langsung redirect ke kuesioner dosen, maka sementara program dapat mengisi kuesioner tetapi tidak sampai dikirim ke server.

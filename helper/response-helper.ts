@@ -16,6 +16,7 @@ export function buildHelpResponse() {
         '  -s --slowMo      Set slow motion bot. Default 100ms (0.9x)\n' +
         '  -r --random      Set randomisasi jawaban kuesioner. Default 3 (Normal, Baik, Sangat Baik) \n' +
         '  -e --exclude     Exclude dosen agar dapat kalian isi kuesioner secara manual\n' +
+        '     --send        Kirim kuesioner ke server. (Default false)\n' +
         '     --path        Set executable path chromium secara manual jika program gagal berjalan\n' 
     )
 }

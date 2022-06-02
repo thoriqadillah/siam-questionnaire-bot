@@ -5,4 +5,5 @@ export type Option = {
     exclude: string
     message: string
     path: string
+    send: boolean
 }

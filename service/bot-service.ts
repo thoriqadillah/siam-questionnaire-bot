@@ -44,6 +44,10 @@ export default async function takeQuestionnaire(siam: Siam, option: Option) {
         buildInfo(`> Mengisi kuesioner atas nama ${dosen[i].name}...`)
         await page.goto(dosen[i].link)
         await populateQuestionnaire(page, option)
+
+        if (option.send) {
+            await page.$eval("input[type=submit]", btn => btn.click());
+        }
     }
 
     buildInfo('> Selesai...')

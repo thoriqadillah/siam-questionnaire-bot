@@ -12,7 +12,8 @@ export default async function run(args: string[]) {
             default: {
                 slowMo: 50,
                 random: 3,
-                path: getChromiumPath()
+                path: getChromiumPath(),
+                send: false
             }, 
             alias: {
                 h: "help",
@@ -32,6 +33,7 @@ export default async function run(args: string[]) {
             random, r,
             exclude, e,
             message, m,
+            send,
             path 
         } = input
     
@@ -67,7 +69,8 @@ export default async function run(args: string[]) {
             random: random || r,
             exclude: exclude ?? e,
             message: message ?? m,
-            path: path
+            path: path,
+            send: send
         }
         
         await takeQuestionnaire(siam, option)    
