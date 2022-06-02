@@ -1,6 +1,6 @@
 import puppeteer, { Page } from "https://deno.land/x/puppeteer@9.0.2/mod.ts";
 import os from "https://deno.land/x/dos@v0.11.0/mod.ts";
-import { buildInfo, buildNotFoundResponse } from "../helper/response-helper.ts";
+import { buildErrorResponse, buildInfo, buildNotFoundResponse } from "../helper/response-helper.ts";
 import { Siam } from "../entity/siam.ts";
 import { Option } from "../entity/botOption.ts";
 import { Dosen } from "../entity/dosen.ts";
@@ -25,33 +25,40 @@ export default async function takeQuestionnaire(siam: Siam, option: Option) {
         headless: option.headless,
         slowMo: option.slowMo,
     });
-    const page = await browser.newPage();
-    await page.goto(siam.link)
 
-    buildInfo('> Login...')
-    await login(page, siam)
-    await page.waitForTimeout(2000);
-    
-    if (await !isRedirectedToQuestionnaire(page)) {
-        buildNotFoundResponse('> Kuesioner tidak ditemukan')
-        browser.close()
-        return
-    }
+    try {
+        const page = await browser.newPage();
+        await page.goto(siam.link)
 
-    buildInfo('> Mengisi kuesioner...')
-    const dosen = await filterDosen(page, option)
-    for (let i = 0; i < dosen.length; i++) {
-        buildInfo(`> Mengisi kuesioner atas nama ${dosen[i].name}...`)
-        await page.goto(dosen[i].link)
-        await populateQuestionnaire(page, option)
-
-        if (option.send) {
-            await page.$eval("input[type=submit]", btn => btn.click());
+        buildInfo('> Login...')
+        await login(page, siam)
+        await page.waitForTimeout(2000);
+        
+        if (await !isRedirectedToQuestionnaire(page)) {
+            buildNotFoundResponse('> Kuesioner tidak ditemukan')
+            browser.close()
+            return
         }
-    }
 
-    buildInfo('> Selesai...')
-    await browser.close()
+        buildInfo('> Mengisi kuesioner...')
+        const dosen = await filterDosen(page, option)
+        for (let i = 0; i < dosen.length; i++) {
+            buildInfo(`> Mengisi kuesioner atas nama ${dosen[i].name}...`)
+            await page.goto(dosen[i].link)
+            await populateQuestionnaire(page, option)
+
+            if (option.send) {
+                await page.$eval("input[type=submit]", btn => btn.click());
+            }
+        }
+
+        buildInfo('> Selesai...')
+        await browser.close()
+
+    } catch (err) {
+        buildErrorResponse(err.message)
+        browser.close()
+    }
 }
 
 async function login(page: Page, siam: Siam) {
